@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "http-server"
+    "start": "browserify app.js > bundle.js && http-server"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/ridespirals/js-canvas#readme",
   "devDependencies": {
+    "browserify": "^15.2.0",
     "http-server": "^0.11.1"
+  },
+  "dependencies": {
+    "fast-simplex-noise": "^3.2.0"
   }
 }
