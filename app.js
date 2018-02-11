@@ -27,10 +27,10 @@ function reaching() {
     var topsystems = []
     var spacing = 10
     for (var i = 0; i < spacing; i++) {
-        var sysx = (width / spacing) + (i * spacing);
         var system = IKSystem.create(i * (width / spacing) + spacing, 0)
-        for (var j = 0; j < 8; j++) {
-            system.addArm(40)
+        var armColor = `hsl(${(360/spacing)*i}, 98%, 54%)`
+        for (var j = 0; j < 12; j++) {
+            system.addArm(20, armColor)
         }
         topsystems.push(system)
     }
@@ -101,10 +101,10 @@ function getABall(areaW, areaH) {
     return {
         x: 100,
         y: 100,
-        vx: 10,
+        vx: 3,
         vy: 0,
-        radius: 20,
-        gravity: 0.20,
+        radius: 26,
+        gravity: 0.15,
         bounce: -1,
         areaW: areaW,
         areaH: areaH,

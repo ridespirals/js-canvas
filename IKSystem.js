@@ -16,8 +16,8 @@ var IKSystem = IKSystem || {
         this.arms = []
     },
 
-    addArm: function(length) {
-        var arm = Arm.create(0, 0, length, 0)
+    addArm: function(length, color) {
+        var arm = Arm.create(0, 0, length, 0, color)
         if (this.lastArm) {
             arm.x = this.lastArm.getEndX()
             arm.y = this.lastArm.getEndY()

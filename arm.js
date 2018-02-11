@@ -4,18 +4,20 @@ var Arm = Arm || {
     length: 100,
     angle: 0,
     parent: null,
+    color: null,
 
-    create: function(x, y, length, angle) {
+    create: function(x, y, length, angle, color) {
         var obj = Object.create(this)
-        obj.init(x, y, length, angle)
+        obj.init(x, y, length, angle, color)
         return obj
     },
 
-    init: function(x, y, length, angle) {
+    init: function(x, y, length, angle, color) {
         this.x = x
         this.y = y
         this.length = length
         this.angle = angle
+        this.color = color
     },
 
     getEndX: function() {
@@ -27,7 +29,7 @@ var Arm = Arm || {
     },
 
     render: function(context) {
-        context.strokeStyle = '#000000'
+        context.strokeStyle = this.color || '#000000'
         context.lineWidth = 5
         context.beginPath()
         context.moveTo(this.x, this.y)
