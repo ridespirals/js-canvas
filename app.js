@@ -15,10 +15,10 @@ function inverseKinematics() {
     var leg1 = FKSystem.create(width / 2, height / 2)
     leg1.phase = Math.PI
 
-    leg0.addArm(200, Math.PI / 2, Math.PI / 4)
-    leg0.addArm(180, 0.87, 0.87)
-    leg1.addArm(200, Math.PI / 2, Math.PI / 4)
-    leg1.addArm(180, 0.87, 0.87)
+    leg0.addArm(200, Math.PI / 2, Math.PI / 4, 0)
+    leg0.addArm(180, 0.87, 0.87, -1.5)
+    leg1.addArm(200, Math.PI / 2, Math.PI / 4, 0)
+    leg1.addArm(180, 0.87, 0.87, -1.5)
 
     var angle = 0
 

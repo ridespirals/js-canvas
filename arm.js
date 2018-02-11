@@ -6,21 +6,23 @@ var Arm = Arm || {
     centerAngle: 0,
     rotationRange: Math.PI / 4,
     parent: null,
+    phaseOffset: 0,
 
-    create: function(length, centerAngle, rotationRange) {
+    create: function(length, centerAngle, rotationRange, phaseOffset) {
         var obj = Object.create(this)
-        obj.init(length, centerAngle, rotationRange)
+        obj.init(length, centerAngle, rotationRange, phaseOffset)
         return obj
     },
 
-    init: function(length, centerAngle, rotationRange) {
+    init: function(length, centerAngle, rotationRange, phaseOffset) {
         this.length = length
         this.centerAngle = centerAngle
         this.rotationRange = rotationRange
+        this.phaseOffset = phaseOffset
     },
 
     setPhase: function(phase) {
-        this.angle = this.centerAngle + Math.sin(phase) * this.rotationRange
+        this.angle = this.centerAngle + Math.sin(phase + this.phaseOffset) * this.rotationRange
     },
 
     getEndX: function() {

@@ -19,8 +19,8 @@ var FKSystem = FKSystem || {
         this.arms = []
     },
 
-    addArm: function(length, centerAngle, rotationRange) {
-        var arm = Arm.create(length, centerAngle, rotationRange)
+    addArm: function(length, centerAngle, rotationRange, phaseOffset) {
+        var arm = Arm.create(length, centerAngle, rotationRange, phaseOffset)
         this.arms.push(arm)
         if (this.lastArm) {
             arm.parent = this.lastArm
