@@ -11,35 +11,54 @@ function reaching() {
     var context = canvas.getContext('2d');
     var width = canvas.width = window.innerWidth;
     var height = canvas.height = window.innerHeight;
+    var mouseX = 0
+    var mouseY = 0
 
-    var iks = IKSystem.create(width / 2, height / 2)
-    iks.addArm(100)
-    iks.addArm(100)
-    iks.addArm(100)
+    var iks = IKSystem.create(250, height)
+    iks.addArm(240)
+    iks.addArm(180)
+    iks.addArm(120)
     
-    document.body.addEventListener('mousemove', function(event) {
-        iks.reach(event.clientX, event.clientY)
-    })
+    var iks2 = IKSystem.create(width - 250, height)
+    iks2.addArm(240)
+    iks2.addArm(180)
+    iks2.addArm(120)
+
+    var ball = getABall(width, height)
+
+    // document.body.addEventListener('mousemove', function(event) {
+    //     mouseX = event.clientX
+    //     mouseY = event.clientY
+    // })
 
     update()
 
     function update() {
         context.clearRect(0, 0, width, height)
 
+        ball.update()
+        ball.render(context)
+
+        // iks.reach(mouseX, mouseY)
+        // iks2.reach(mouseX, mouseY)
+        iks.reach(ball.x, ball.y)
+        iks2.reach(ball.x, ball.y)
+
         iks.render(context)
+        iks2.render(context)
 
         requestAnimationFrame(update)
     }
 }
 
-function inverseKinematics() {
+function ikArm() {
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
     var width = canvas.width = window.innerWidth;
     var height = canvas.height = window.innerHeight;
 
     var iks = IKSystem.create(width / 2, height / 2)
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 20; i++) {
         iks.addArm(30)
     }
 
@@ -59,3 +78,44 @@ function inverseKinematics() {
 
 }
 
+function getABall(areaW, areaH) {
+    return {
+        x: 100,
+        y: 100,
+        vx: 5,
+        vy: 0,
+        radius: 20,
+        gravity: 0.25,
+        bounce: -1,
+        areaW: areaW,
+        areaH: areaH,
+        update: function() {
+            this.x += this.vx
+            this.y += this.vy
+            this.vy += this.gravity
+
+            if (this.x + this.radius > this.areaW) {
+                this.x = this.areaW - this.radius
+                this.vx *= this.bounce
+            } 
+            else if (this.x < this.radius) {
+                this.x = this.radius
+                this.vx *= this.bounce
+            }
+            else if (this.y + this.radius > this.areaH) {
+                this.y = this.areaH - this.radius
+                this.vy *= this.bounce
+            }
+            else if (this.y < this.radius) {
+                this.y = this.radius
+                this.vy *= this.bounce
+            }
+        },
+        render: function(context) {
+            context.beginPath()
+            context.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
+            context.fill()
+        }
+        
+    }
+}
