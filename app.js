@@ -36,6 +36,7 @@ function reaching() {
     }
 
     var ball = getABall(width, height)
+    var colorH = 0
 
     // document.body.addEventListener('mousemove', function(event) {
     //     mouseX = event.clientX
@@ -47,8 +48,7 @@ function reaching() {
     function update() {
         context.clearRect(0, 0, width, height)
 
-        ball.update()
-        ball.render(context)
+        context.fillStyle = `hsl(${(colorH++) % 360}, 98%, 54%)`
 
         // iks.reach(mouseX, mouseY)
         // iks2.reach(mouseX, mouseY)
@@ -62,6 +62,9 @@ function reaching() {
             topsystems[i].reach(ball.x, ball.y)
             topsystems[i].render(context)
         }
+
+        ball.update()
+        ball.render(context)
 
         requestAnimationFrame(update)
     }
@@ -98,10 +101,10 @@ function getABall(areaW, areaH) {
     return {
         x: 100,
         y: 100,
-        vx: 5,
+        vx: 10,
         vy: 0,
         radius: 20,
-        gravity: 0.25,
+        gravity: 0.20,
         bounce: -1,
         areaW: areaW,
         areaH: areaH,
