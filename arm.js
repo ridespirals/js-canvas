@@ -3,46 +3,27 @@ var Arm = Arm || {
     y: 0,
     length: 100,
     angle: 0,
-    centerAngle: 0,
-    rotationRange: Math.PI / 4,
     parent: null,
-    phaseOffset: 0,
 
-    create: function(length, centerAngle, rotationRange, phaseOffset) {
+    create: function(x, y, length, angle) {
         var obj = Object.create(this)
-        obj.init(length, centerAngle, rotationRange, phaseOffset)
+        obj.init(x, y, length, angle)
         return obj
     },
 
-    init: function(length, centerAngle, rotationRange, phaseOffset) {
+    init: function(x, y, length, angle) {
+        this.x = x
+        this.y = y
         this.length = length
-        this.centerAngle = centerAngle
-        this.rotationRange = rotationRange
-        this.phaseOffset = phaseOffset
-    },
-
-    setPhase: function(phase) {
-        this.angle = this.centerAngle + Math.sin(phase + this.phaseOffset) * this.rotationRange
+        this.angle = angle
     },
 
     getEndX: function() {
-        var angle = this.angle
-        var parent = this.parent
-        while (parent) {
-            angle += parent.angle
-            parent = parent.parent
-        }
-        return this.x + Math.cos(angle) * this.length
+        return this.x + Math.cos(this.angle) * this.length
     },
 
     getEndY: function() {
-        var angle = this.angle
-        var parent = this.parent
-        while (parent) {
-            angle += parent.angle
-            parent = parent.parent
-        }
-        return this.y + Math.sin(angle) * this.length
+        return this.y + Math.sin(this.angle) * this.length
     },
 
     render: function(context) {
@@ -52,5 +33,22 @@ var Arm = Arm || {
         context.moveTo(this.x, this.y)
         context.lineTo(this.getEndX(), this.getEndY())
         context.stroke()
+    },
+
+    pointAt: function(x, y) {
+        var dx = x - this.x
+        var dy = y - this.y
+        this.angle = Math.atan2(dy, dx)
+    },
+
+    drag: function(x, y) {
+        this.pointAt(x, y)
+        this.x = x - Math.cos(this.angle) * this.length
+        this.y = y - Math.sin(this.angle) * this.length
+        if (this.parent) {
+            this.parent.drag(this.x, this.y)
+        }
     }
+
+    
 }
