@@ -3,6 +3,8 @@ var FKSystem = FKSystem || {
     lastArm: null,
     x: 0,
     y: 0,
+    phase: 0,
+    speed: 0.05,
 
 
     create: function(x, y) {
@@ -17,8 +19,8 @@ var FKSystem = FKSystem || {
         this.arms = []
     },
 
-    addArm: function(length) {
-        var arm = Arm.create(0, 0, length, 0)
+    addArm: function(length, centerAngle, rotationRange) {
+        var arm = Arm.create(length, centerAngle, rotationRange)
         this.arms.push(arm)
         if (this.lastArm) {
             arm.parent = this.lastArm
@@ -30,6 +32,7 @@ var FKSystem = FKSystem || {
     update: function() {
         for (var i = 0; i < this.arms.length; i++) {
             var arm = this.arms[i]
+            arm.setPhase(this.phase)
             if (arm.parent) {
                 arm.x = arm.parent.getEndX()
                 arm.y = arm.parent.getEndY()
@@ -38,6 +41,7 @@ var FKSystem = FKSystem || {
                 arm.y = this.y
             }
         }
+        this.phase += this.speed
     },
 
     render: function (context) {

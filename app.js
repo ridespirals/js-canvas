@@ -11,25 +11,30 @@ function inverseKinematics() {
     var width = canvas.width = window.innerWidth;
     var height = canvas.height = window.innerHeight;
 
-    var fks = FKSystem.create(width / 2, height / 2)
-    fks.addArm(200)
-    fks.addArm(150)
-    fks.addArm(100)
+    var leg0 = FKSystem.create(width / 2, height / 2)
+    var leg1 = FKSystem.create(width / 2, height / 2)
+    leg1.phase = Math.PI
 
-    // fks.rotateArm(0, 1.3)
-    // fks.rotateArm(1, -1.7)
-    // fks.rotateArm(2, 0.98)
-
-    // var arm = Arm.create(width / 2, height / 2, 100, 0)
-    // var arm2 = Arm.create(arm.getEndX(), arm.getEndY(), 100, 1.3)
-    // var arm3 = Arm.create(arm2.getEndX(), arm2.getEndY(), 100, 1.3)
-
-    // arm2.parent = arm
-    // arm3.parent = arm2
+    leg0.addArm(200, Math.PI / 2, Math.PI / 4)
+    leg0.addArm(180, 0.87, 0.87)
+    leg1.addArm(200, Math.PI / 2, Math.PI / 4)
+    leg1.addArm(180, 0.87, 0.87)
 
     var angle = 0
 
-    update()
+    walkCycle()
+
+    function walkCycle() {
+        context.clearRect(0, 0, width, height)
+
+        leg0.update()
+        leg1.update()
+
+        leg0.render(context)
+        leg1.render(context)
+
+        requestAnimationFrame(walkCycle)
+    }
 
     function update() {
         context.clearRect(0, 0, width, height)
