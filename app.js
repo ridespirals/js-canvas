@@ -28,7 +28,7 @@ function reaching() {
     var spacing = 10
     for (var i = 0; i < spacing; i++) {
         var sysx = (width / spacing) + (i * spacing);
-        var system = IKSystem.create(i * sysx, 0)
+        var system = IKSystem.create(i * (width / spacing) + spacing, 0)
         for (var j = 0; j < 8; j++) {
             system.addArm(40)
         }
