@@ -24,6 +24,17 @@ function reaching() {
     iks2.addArm(180)
     iks2.addArm(120)
 
+    var topsystems = []
+    var spacing = 10
+    for (var i = 0; i < spacing; i++) {
+        var sysx = (width / spacing) + (i * spacing);
+        var system = IKSystem.create(i * sysx, 0)
+        for (var j = 0; j < 8; j++) {
+            system.addArm(40)
+        }
+        topsystems.push(system)
+    }
+
     var ball = getABall(width, height)
 
     // document.body.addEventListener('mousemove', function(event) {
@@ -46,6 +57,11 @@ function reaching() {
 
         iks.render(context)
         iks2.render(context)
+
+        for (var i = 0; i < topsystems.length; i++) {
+            topsystems[i].reach(ball.x, ball.y)
+            topsystems[i].render(context)
+        }
 
         requestAnimationFrame(update)
     }
