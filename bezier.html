@@ -74,6 +74,24 @@
             t * t * t * p3.y;
         return pFinal
     }
+
+    function multicurve(points, context) {
+        var p0, p1, midx, midy
+
+        context.moveTo(points[0].x, points[0].y)
+
+        for (var i = 1; i < points.length - 2; i += 1) {
+            p0 = points[i]
+            p1 = points[i + 1]
+            midx = (p0.x + p1.x) / 2
+            midy = (p0.y + p1.y) / 2
+            context.quadraticCurveTo(p0.x, p0.y, midx, midy)
+        }
+        p0 = points[points.length - 2]
+        p1 = points[points.length - 1]
+        context.quadraticCurveTo(p0.x, p0.y, p1.x, p1.y)
+    }
+
     function randomRange(min, max) {
         return min + Math.random() * (max - min)
     }
@@ -116,20 +134,68 @@
         context.arc(p3.x, p3.y, 4, 0, Math.PI * 2, false)
         context.fill()
 
-        context.beginPath()
-        context.moveTo(p0.x, p0.y)
-        context.bezierCurveTo(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y)
-        context.stroke()
-
+        var maxT = 0
         var pFinal = {}
 
-        for (var t = 0; t <= 1; t += 0.01) {
-            cubicBezier(p0, p1, p2, p3, t, pFinal)
+        function drawCurve(){
             context.beginPath()
-            context.arc(pFinal.x, pFinal.y, 10, 0, Math.PI * 2, false)
+            context.moveTo(p0.x, p0.y)
+            context.bezierCurveTo(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y)
             context.stroke()
+            context.beginPath()
+            context.arc(p0.x, p0.y, 4, 0, Math.PI * 2, false)
+            context.fill()
         }
+
+        //animateBezier()
+
+        drawMulticurve()
+        function drawMulticurve() {
+            var points = []
+            var numPoints = 10
+
+            for (var i = 0; i < numPoints; i++) {
+                var p = {
+                    x: Math.random() * width,
+                    y: Math.random() * height
+                }
+                context.beginPath()
+                context.arc(p.x, p.y, 3, 0, Math.PI * 2, false)
+                context.fill()
+                points.push(p)
+            }
+
+            context.strokeStyle = '#bbb'
+            context.beginPath()
+            context.moveTo(points[0].x, points[0].y)
+            for (var i = 1; i < numPoints; i++) {
+                context.lineTo(points[i].x, points[i].y)
+            }
+            context.stroke()
+
+            context.strokeStyle = 'black'
+
+            context.beginPath()
+            multicurve(points, context)
+            context.stroke()
             
+        }
+    }
+    function animateBezier() {
+        context.clearRect(0, 0, width, height)
+        context.beginPath()
+        context.moveTo(p0.x, p0.y)
+        for (var t = 0; t <= maxT; t += 0.01) {
+            cubicBezier(p0, p1, p2, p3, t, pFinal)
+            context.lineTo(pFinal.x, pFinal.y)
+        }
+        context.stroke()
+        maxT += 0.01
+        if (maxT > 1) {
+            maxT = 0
+        }
+
+        requestAnimationFrame(draw)
     }
 </script>
 </html>
