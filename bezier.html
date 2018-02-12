@@ -1,12 +1,8 @@
 <!doctype html>
 <html>
 <head>
-    <title>Inverse Kinematics : ride_spirals</title>
+    <title>Bezier Curves : ride_spirals</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="app.js"></script>
-    <script type="text/javascript" src="arm.js"></script>
-    <script type="text/javascript" src="FKSystem.js"></script>
-    <script type="text/javascript" src="IKSystem.js"></script>
     <style type="text/css">
         * { box-sizing: border-box; }
         html, body { 
@@ -43,14 +39,19 @@
 <body>
     <section id="navigation">
         <ul>
-            <li class="logo"><a href="index.html">ride_spirals</a></li>
+            <li class="logo"><a href="/">ride_spirals</a></li>
             <!-- <li><a href="iksystem.html">Reaching Arms (IK System)</a></li> -->
-            <li>Reaching Arms (IK System)</li>
-            <li><a href="bezier.html">Bezier Curves</a></li>
+            <li><a href="index.html">Reaching Arms (IK System)</a></li>
+            <li>Bezier Curves</li>
         </ul>
     </section>
     <section id="feature">
         <canvas id="canvas"></canvas>
     </section>
 </body>
+<script type="text/javascript">
+    window.onload = function() {
+        console.log('Loaded')
+    }
+</script>
 </html>
