@@ -1,15 +1,39 @@
 <!doctype html>
 <html>
 <head>
-    <title>Canvas</title>
+    <title>Inverse Kinematics : ride_spirals</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="arm.js"></script>
     <script type="text/javascript" src="FKSystem.js"></script>
     <script type="text/javascript" src="IKSystem.js"></script>
     <style type="text/css">
+        * { box-sizing: border-box; }
         html, body { 
             margin: 0px; 
             background: linear-gradient(to right, #f7f7f7, #ccc); 
+            font-size: 16px;
+            overflow: hidden;
+        }
+        a { text-decoration: none; }
+        section#navigation {
+            font-size: 0.8rem;
+            font-family: 'Monaco', 'Consolas', monospace;
+            border-bottom: 1px solid #ccc;
+        }
+        #navigation ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 5px 20px;
+        }
+        #navigation li {
+            margin-right: 1.5rem;
+        }
+        #navigation li.logo a {
+            font-weight: bold;
+            font-size: 1.2rem;
         }
         canvas {
             display: block;
@@ -17,6 +41,15 @@
     </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+    <section id="navigation">
+        <ul>
+            <li class="logo"><a href="/">ride_spirals</a></li>
+            <!-- <li><a href="iksystem.html">Reaching Arms (IK System)</a></li> -->
+            <li>Reaching Arms (IK System)</li>
+        </ul>
+    </section>
+    <section id="feature">
+        <canvas id="canvas"></canvas>
+    </section>
 </body>
 </html>
